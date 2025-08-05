@@ -1,19 +1,19 @@
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ✅ public 폴더 안에 있는 정적 파일 서빙
+app.use(express.static(path.join(__dirname, 'public')));
 
-const path = require('path');
-// // ✅ public 폴더 안에 있는 정적 파일 서빙
-app.use(express.static(path.join(dirname, 'public')));
-
-// // ✅ 루트 경로에 들어오면 test.html 서빙
+// ✅ 루트 경로에 들어오면 test.html 서빙
 app.get('/', (req, res) => {
- res.sendFile(path.join(dirname, 'public', 'test.html'));
-});
-
-app.get('/', (req, res) => {
-  res.send({ message: 'Hello from Render with Node.js!' });
+  res.sendFile(path.join(__dirname, 'public', 'test.html'));
 });
 
 app.listen(PORT, () => {
